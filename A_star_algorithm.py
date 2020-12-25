@@ -47,18 +47,18 @@ display_board()
 start = int(input("Enter the start node number: "))
 end = int(input("Enter the end node number: "))
 start_row, start_col, end_row, end_col = get_row_col(start, end)
-# walls = []
-# no_of_wall = int(input("Enter the number of walls: "))
-# for i in range(no_of_wall):
-#    wall_no = int(input("Enter wall number: "))
-#    walls.append(wall_no)
+walls = []
+no_of_wall = int(input("Enter the number of walls: "))
+for i in range(no_of_wall):
+    wall_no = int(input("Enter wall number: "))
+    walls.append(wall_no)
 
 
 def finding(parent, c_row, c_col):
     global open_set
     if 0 <= c_row <= 8 and 0 <= c_col <= 9:
         no = 10 + (c_row * 10) + c_col
-        if parent not in P[no]:
+        if parent not in P[no] and no not in walls:
             g = abs(start_row - c_row) + abs(start_col - c_col)
             h = abs(end_row - c_row) + abs(end_col - c_col)
             f = g + h
@@ -78,6 +78,7 @@ get_neighbors(start, start_row, start_col)
 
 
 def get_min_f():
+    print(open_set, [i.parent for i in open_set])
     mini = open_set[0].f
     min_no = open_set[0]
     for i in range(1, len(open_set)):
