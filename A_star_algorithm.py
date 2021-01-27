@@ -78,7 +78,6 @@ get_neighbors(start, start_row, start_col)
 
 
 def get_min_f():
-    print(open_set, [i.parent for i in open_set])
     mini = open_set[0].f
     min_no = open_set[0]
     for i in range(1, len(open_set)):
