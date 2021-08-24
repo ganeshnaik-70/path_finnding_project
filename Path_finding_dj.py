@@ -1,9 +1,14 @@
 from tkinter import *
 import sys
 
-sys.setrecursionlimit(10 ** 4)
+sys.setrecursionlimit(10 ** 5)
+
+# Root window
 root = Tk()
 root.geometry("662x500+300+100")
+root.title("Path finding algorithm")
+
+# variables
 grid = []
 count = 0
 c = 0
@@ -14,13 +19,14 @@ branch = []
 path = []
 path_ind = -1
 find = False
+# initially path array contains -1
 for i in range(19 * 30):
     path.append(-1)
 
 
+# this function takes the index number and gives its row and col
 def counter(n):
     global c
-
     if n - 30 < 0:
         return c, n
     else:
@@ -28,6 +34,7 @@ def counter(n):
         return counter(n - 30)
 
 
+# for back tracking the path
 def backtrack(n):
     global start, end, c
     if path[n] != -1:
@@ -42,6 +49,7 @@ def backtrack(n):
     return
 
 
+# this will make branch to each node
 def set_branch(row, col, p_row, p_col):
     global branch, path_ind, find
     if row > 18 or row < 0 or col > 29 or col < 0:
@@ -59,6 +67,7 @@ def set_branch(row, col, p_row, p_col):
     return
 
 
+# This function calculate the branch of each node
 def start_game(start_row, start_col):
     # print(start_row,start_col)
     p_row, p_col = start_row, start_col
@@ -71,6 +80,7 @@ def start_game(start_row, start_col):
     return
 
 
+# This is the recursive function
 def loop(start_row, start_col):
     global branch, end, count
     branch.append((start_row, start_col))
@@ -84,6 +94,7 @@ def loop(start_row, start_col):
         loop(branch[0][0], branch[0][1])
 
 
+# THis is Restart Functionality
 def restart():
     global start, end, branch, path, grid, count, c, path_ind, find
     start = None
@@ -97,6 +108,7 @@ def restart():
     make_grid()
 
 
+# This will start the simulation
 def start_fun():
     global btn, rst, start
     btn = Button(root, text="START", command=lambda: loop(start.grid_info()["row"], start.grid_info()["column"])
@@ -106,6 +118,7 @@ def start_fun():
     rst.grid(row=30, column=10, columnspan=3)
 
 
+# Event handler
 def click(event):
     global count, start, end
     if count == 0 and event.widget != btn and event.widget != rst:
@@ -117,11 +130,12 @@ def click(event):
         end["bg"] = "green"
         count += 1
     else:
-        if event.widget != start and event.widget != end and event.widget != btn and event.widget != rst:
+        if event.widget != start and event.widget != end and event.widget != btn and event.widget != rst and not find:
             event.widget["bg"] = "black"
             count += 1
 
 
+# to create grid of nodes
 def make_grid():
     for i in range(19):
         grid.append([])
@@ -131,6 +145,7 @@ def make_grid():
             grid[i].append(b)
 
 
+# function call
 make_grid()
 start_fun()
 root.bind("<Button-1>", click)
