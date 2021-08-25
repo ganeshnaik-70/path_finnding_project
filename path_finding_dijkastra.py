@@ -150,7 +150,7 @@ def restart():
 
 # For backtracking the path
 def backtrack():
-    if len(array_path)==0:
+    if len(array_path) == 0:
         print("No Path Found")
     global c, find
     for ele in array_path[:-1]:
