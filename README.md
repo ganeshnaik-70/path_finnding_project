@@ -7,4 +7,5 @@ and easy to represent visited node(yellow) and path (light blue)
 tkinter buttons are very useful when you have projects to done. 
 it provides eassy way to handle the click events.
 
-
+For demo of the Project you can watch this video :
+https://youtu.be/Iv313sO48lg
